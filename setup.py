@@ -15,55 +15,58 @@ import sys
 if sys.version_info < (3, 6):
     raise RuntimeError("此项目需要Python 3.6或更高版本")
 
-# 读取README文件作为长描述
+# 获取项目根目录
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+
+# 读取README文件作为长描述
+try:
+    with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+        long_description = f.read()
+except FileNotFoundError:
+    long_description = "网络扫描和漏洞检测工具 - 一个功能强大的Python网络扫描工具"
 
 # 读取requirements文件
 def read_requirements(filename):
     """读取requirements文件并返回依赖列表"""
     requirements = []
     try:
-        with open(filename, 'r', encoding='utf-8') as f:
+        filepath = os.path.join(here, filename)
+        with open(filepath, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
-                if line and not line.startswith('#') and not line.startswith('-'):
+                if line and not line.startswith('#') and not line.startswith('-') and '==' in line or '>=' in line:
+                    # 只保留有版本号的依赖
                     requirements.append(line)
     except FileNotFoundError:
         pass
     return requirements
 
-# 基础依赖
-install_requires = [
-    'requests>=2.25.0',
-]
+# 项目依赖（从requirements.txt读取）
+install_requires = read_requirements('requirements.txt')
 
-# 可选依赖
+# 可选依赖（保留向后兼容性）
 extras_require = {
-    'full': read_requirements('requirements.txt'),
-    'nmap': ['python-nmap>=0.6.1'],
-    'advanced': [
-        'scapy>=2.4.0',
-        'cryptography>=3.4.0',
-        'paramiko>=2.7.0',
-    ],
-    'analysis': [
-        'pandas>=1.3.0',
-        'numpy>=1.21.0',
-    ],
-    'reporting': [
-        'jinja2>=3.0.0',
-        'markdown>=3.3.0',
-    ],
+    'all': read_requirements('requirements.txt'),  # 与默认安装相同
 }
+
+# 获取版本信息
+def get_version():
+    """从__init__.py文件中获取版本号"""
+    try:
+        with open(os.path.join(here, 'scanner', '__init__.py'), 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.startswith('__version__'):
+                    return line.split('=')[1].strip().strip('"\'')
+    except:
+        pass
+    return '1.0.0'
 
 setup(
     name='network-scanner-vuln-detector',
-    version='1.0.0',
+    version=get_version(),
     author='Security Engineer',
     author_email='security@example.com',
-    description='网络扫描和漏洞检测工具',
+    description='网络扫描和漏洞检测工具 - 专注于服务识别、版本检测和漏洞发现',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/knowledge-ARI/Nmap',
@@ -108,11 +111,31 @@ setup(
         'console_scripts': [
             'network-scanner=scanner.main:main',
             'vuln-scanner=scanner.main:main',
+            'nmap-scanner=scanner.main:main',
         ],
     },
     zip_safe=False,
     platforms=['any'],
     license='MIT',
     test_suite='tests',
-    tests_require=extras_require['dev'],
+    tests_require=extras_require.get('dev', []),
 )
+
+# 如果直接运行setup.py，显示帮助信息
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print("网络扫描和漏洞检测工具 - 安装脚本")
+        print("")
+        print("使用方法:")
+        print("  python setup.py install          # 安装项目")
+        print("  python setup.py develop          # 开发模式安装")
+        print("  python setup.py sdist            # 创建源码分发包")
+        print("  python setup.py bdist_wheel      # 创建wheel分发包")
+        print("  python setup.py clean --all      # 清理构建文件")
+        print("")
+        print("安装选项:")
+        print("  pip install .                    # 标准安装（推荐）")
+        print("  pip install .[all]               # 完整安装（与标准安装相同）")
+        print("")
+        print("更多信息请查看 README.md 和 INSTALL.md")
+        sys.exit(0)
