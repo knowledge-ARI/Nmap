@@ -1,0 +1,75 @@
+# 网络扫描和漏洞检测工具 - 依赖文件
+# 本项目主要使用Python标准库，减少外部依赖
+
+# 核心依赖（可选，用于增强功能）
+requests>=2.25.0          # HTTP请求库，用于高级HTTP功能和API调用
+python-nmap>=0.6.1        # Nmap Python接口，用于集成官方Nmap功能
+scapy>=2.4.0              # 网络包处理库，用于高级网络分析
+
+# 数据处理和分析
+pandas>=1.3.0             # 数据分析库，用于漏洞数据处理
+numpy>=1.21.0             # 数值计算库，用于数据分析
+
+# 网络和安全相关
+cryptography>=3.4.0       # 加密库，用于安全通信
+paramiko>=2.7.0           # SSH客户端库，用于SSH服务检测
+
+# 输出和报告
+jinja2>=3.0.0             # 模板引擎，用于生成报告
+markdown>=3.3.0           # Markdown处理，用于文档生成
+
+# 开发和测试依赖
+pytest>=6.0.0             # 测试框架
+pytest-cov>=2.10.0        # 测试覆盖率
+pytest-mock>=3.6.0        # 测试模拟库
+
+# 代码质量工具
+black>=21.0.0             # 代码格式化工具
+flake8>=3.8.0             # 代码检查工具
+isort>=5.9.0              # 导入排序工具
+mypy>=0.910               # 类型检查工具
+
+# 文档生成
+sphinx>=4.0.0             # 文档生成工具
+sphinx-rtd-theme>=0.5.0   # 文档主题
+
+# 性能分析
+memory-profiler>=0.58.0   # 内存分析工具
+line-profiler>=3.3.0      # 行级性能分析
+
+# 注意：以下模块已包含在Python标准库中，无需额外安装：
+# - socket: 网络通信
+# - threading: 多线程
+# - concurrent.futures: 线程池
+# - subprocess: 系统命令执行
+# - struct: 二进制数据处理
+# - re: 正则表达式
+# - json: JSON处理
+# - xml.etree.ElementTree: XML处理
+# - argparse: 命令行参数解析
+# - logging: 日志记录
+# - time: 时间处理
+# - os: 操作系统接口
+# - platform: 平台信息
+# - base64: Base64编码
+# - random: 随机数生成
+# - urllib.parse: URL解析
+# - ipaddress: IP地址处理
+# - pathlib: 路径处理
+# - collections: 集合类型
+# - itertools: 迭代工具
+# - functools: 函数工具
+# - datetime: 日期时间处理
+# - hashlib: 哈希算法
+# - hmac: HMAC算法
+# - ssl: SSL/TLS支持
+# - http.client: HTTP客户端
+# - urllib.request: URL请求
+
+# 安装说明：
+# 1. 基础安装（仅核心功能）：
+#    pip install requests python-nmap
+# 2. 完整安装（包含所有功能）：
+#    pip install -r requirements.txt
+# 3. 开发环境安装：
+#    pip install -r requirements.txt

@@ -1,0 +1,51 @@
+# 包含额外的文件到Python包中
+
+# 文档文件
+include README.md
+include LICENSE
+include CHANGELOG.md
+
+# 配置文件
+include requirements*.txt
+include setup.py
+include setup.cfg
+include pyproject.toml
+
+# 数据文件
+recursive-include scanner/data *
+recursive-include scanner/data/exploits *
+
+# 测试文件
+recursive-include tests *.py
+recursive-include tests *.txt
+recursive-include tests *.json
+
+# 示例文件
+recursive-include examples *.py
+recursive-include examples *.txt
+recursive-include examples *.md
+
+# 文档源文件
+recursive-include docs *.rst
+recursive-include docs *.md
+recursive-include docs *.py
+recursive-include docs Makefile
+
+# 配置文件
+include .gitignore
+include .flake8
+include .pre-commit-config.yaml
+include tox.ini
+include pytest.ini
+
+# 排除不需要的文件
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude __pycache__
+global-exclude .git*
+global-exclude .DS_Store
+global-exclude *.so
+global-exclude .tox
+global-exclude .coverage
+global-exclude .pytest_cache
