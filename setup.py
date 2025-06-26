@@ -42,8 +42,6 @@ install_requires = [
 # 可选依赖
 extras_require = {
     'full': read_requirements('requirements.txt'),
-    'dev': read_requirements('requirements-dev.txt'),
-    'minimal': read_requirements('requirements-minimal.txt'),
     'nmap': ['python-nmap>=0.6.1'],
     'advanced': [
         'scapy>=2.4.0',
@@ -68,11 +66,11 @@ setup(
     description='网络扫描和漏洞检测工具',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/security-engineer/network-scanner',
+    url='https://github.com/knowledge-ARI/Nmap',
     project_urls={
-        'Bug Reports': 'https://github.com/security-engineer/network-scanner/issues',
-        'Source': 'https://github.com/security-engineer/network-scanner',
-        'Documentation': 'https://network-scanner.readthedocs.io/',
+        'Bug Reports': 'https://github.com/knowledge-ARI/Nmap/issues',
+        'Source': 'https://github.com/knowledge-ARI/Nmap',
+        'Documentation': 'https://github.com/knowledge-ARI/Nmap#readme',
     },
     packages=find_packages(),
     package_data={

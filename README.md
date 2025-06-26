@@ -34,7 +34,6 @@ scanner/
 ├── parser.py            # Nmap数据解析器
 ├── vuln_search.py       # 漏洞搜索模块
 ├── poc_test.py          # POC测试模块
-├── requirements.txt     # 依赖说明
 ├── __init__.py          # 模块初始化
 └── data/                # 数据文件目录
     ├── nmap-services    # 服务端口映射
